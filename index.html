@@ -35,8 +35,9 @@
     <div class="item frames-item">HelloWorldTwelve</div>
 </div>
 <script>
-    $(".item").on('click', function (event) {
-        //event.target.scrollIntoView();
-        $(this).scrollIntoView();
+    $(".item").on('click', function(event) {
+      let scrollSpeed = 800;
+      let scrollTo = $(this).position().left + $(".group").scrollLeft();
+      $(".group").animate({scrollLeft: scrollTo}, scrollSpeed);
     });
 </script>
