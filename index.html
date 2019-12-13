@@ -1,0 +1,41 @@
+<head>
+    <style>
+        body {
+            background: red;
+        }
+
+        .group {
+            width: 400px;
+            display: flex;
+            position: relative;
+            /* This is important for the js offsetLeft property */
+            overflow-x: scroll;
+        }
+
+        .item {
+            width: 200px;
+            background: #eee;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<div class="group" id="frames">
+    <div class="item frames-item">HelloWorldOne</div>
+    <div class="item frames-item">HelloWorldTwo</div>
+    <div class="item frames-item">HelloWorldThree</div>
+    <div class="item frames-item">HelloWorldFour</div>
+    <div class="item frames-item">HelloWorldFive</div>
+    <div class="item frames-item">HelloWorldSix</div>
+    <div class="item frames-item">HelloWorldSeven</div>
+    <div class="item frames-item">HelloWorldEight</div>
+    <div class="item frames-item">HelloWorldNine</div>
+    <div class="item frames-item">HelloWorldTen</div>
+    <div class="item frames-item">HelloWorldEleven</div>
+    <div class="item frames-item">HelloWorldTwelve</div>
+</div>
+<script>
+    $(".item").on('click', function (event) {
+        event.target.scrollIntoView();
+    });
+</script>
