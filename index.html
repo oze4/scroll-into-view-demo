@@ -1,44 +1,125 @@
 <head>
     <style>
         body {
-            background: red;
+          background: red;
+        }
+
+        h3{
+          color: white;
+          text-decoration: underline white;
+          margin: 5px;
         }
 
         .group {
-            width: 400px;
-            height: 50px;
-            display: flex;
-            position: relative;
-            /* This is important for the js offsetLeft property */
-            overflow-x: scroll;
+          border: 1px solid black;
+          padding: 5px 0px;
+          width: 400px;
+          height: 38px;
+          display: flex;
+          position: relative;
+          /* This is important for the js offsetLeft property */
+          overflow-x: scroll;
         }
 
-        .item {
-            width: 200px;
-            background: #eee;
-            margin-right: 10px;
+        .item1,
+        .item2,
+        .item3 {
+          width: 200px;
+          background: #eee;
+          margin-right: 10px;
+          cursor: pointer;
+        }
+
+        .clickme {
+          background: lightblue;
+        }
+
+        p {
+          margin: 0;
         }
     </style>
 </head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<div class="group" id="frames">
-    <div class="item frames-item">HelloWorldOne</div>
-    <div class="item frames-item">HelloWorldTwo</div>
-    <div class="item frames-item">HelloWorldThree</div>
-    <div class="item frames-item">HelloWorldFour</div>
-    <div class="item frames-item">HelloWorldFive</div>
-    <div class="item frames-item">HelloWorldSix</div>
-    <div class="item frames-item">HelloWorldSeven</div>
-    <div class="item frames-item">HelloWorldEight</div>
-    <div class="item frames-item">HelloWorldNine</div>
-    <div class="item frames-item">HelloWorldTen</div>
-    <div class="item frames-item">HelloWorldEleven</div>
-    <div class="item frames-item">HelloWorldTwelve</div>
+<h3>Final Solution</h3>
+<p><i><b><small>Click on 'HelloWorldFour' (the light blue block)</small></b></i></p>
+<div class="group" id="frames1">
+    <div class="item1 frames-item">HelloWorldOne</div>
+    <div class="item1 frames-item">HelloWorldTwo</div>
+    <div class="item1 frames-item">HelloWorldThree</div>
+    <div class="clickme item1 frames-item">HelloWorldFour</div>
+    <div class="item1 frames-item">HelloWorldFive</div>
+    <div class="item1 frames-item">HelloWorldSix</div>
+    <div class="item1 frames-item">HelloWorldSeven</div>
+    <div class="item1 frames-item">HelloWorldEight</div>
+    <div class="item1 frames-item">HelloWorldNine</div>
+    <div class="item1 frames-item">HelloWorldTen</div>
+    <div class="item1 frames-item">HelloWorldEleven</div>
+    <div class="item1 frames-item">HelloWorldTwelve</div>
+</div><br /><hr />
+<h3>Each step is animated here - to show how the underlying calculation works.</h3>
+<p><i><b><small>Click on 'HelloWorldFour' (the light blue block)</small></b></i></p>
+<div class="group" id="frames3">
+    <div class="item3 frames-item">HelloWorldOne</div>
+    <div class="item3 frames-item">HelloWorldTwo</div>
+    <div class="item3 frames-item">HelloWorldThree</div>
+    <div class="clickme item3 frames-item">HelloWorldFour</div>
+    <div class="item3 frames-item">HelloWorldFive</div>
+    <div class="item3 frames-item">HelloWorldSix</div>
+    <div class="item3 frames-item">HelloWorldSeven</div>
+    <div class="item3 frames-item">HelloWorldEight</div>
+    <div class="item3 frames-item">HelloWorldNine</div>
+    <div class="item3 frames-item">HelloWorldTen</div>
+    <div class="item3 frames-item">HelloWorldEleven</div>
+    <div class="item3 frames-item">HelloWorldTwelve</div>
+</div><br /><hr />
+<h3>Using only 'zeroLeft' - this was my first, older, answer.</h3>
+<p><i><b><small>Click on 'HelloWorldFour' (the light blue block)</small></b></i></p>
+<div class="group" id="frames2">
+    <div class="item2 frames-item">HelloWorldOne</div>
+    <div class="item2 frames-item">HelloWorldTwo</div>
+    <div class="item2 frames-item">HelloWorldThree</div>
+    <div class="clickme item2 frames-item">HelloWorldFour</div>
+    <div class="item2 frames-item">HelloWorldFive</div>
+    <div class="item2 frames-item">HelloWorldSix</div>
+    <div class="item2 frames-item">HelloWorldSeven</div>
+    <div class="item2 frames-item">HelloWorldEight</div>
+    <div class="item2 frames-item">HelloWorldNine</div>
+    <div class="item2 frames-item">HelloWorldTen</div>
+    <div class="item2 frames-item">HelloWorldEleven</div>
+    <div class="item2 frames-item">HelloWorldTwelve</div>
 </div>
 <script>
-    $(".item").on('click', function(event) {
-      let scrollSpeed = 800;
-      let scrollTo = $(this).position().left + $(".group").scrollLeft();
-      $(".group").animate({scrollLeft: scrollTo}, scrollSpeed);
+    $(".item1").on('click', function(event) {
+      finalSolution(this, "#frames1", 400);
     });
+
+    $(".item2").on('click', function(event) {
+      zeroLeftOnly(this, "#frames2", 800);
+    });
+
+    $(".item3").on('click', function(event) {
+      animatedSteps(this, "#frames3", 800);
+    });
+
+    function finalSolution(element, container, scrollSpeed) {
+      const zeroLeft = $(element).position().left + $(container).scrollLeft();
+      const offsetLeft = $(container).width() - $(element).width();
+      const scrollTo = zeroLeft - offsetLeft;
+      $(container).animate({ scrollLeft: scrollTo }, scrollSpeed);
+    }
+
+    function zeroLeftOnly(element, container, scrollSpeed) {
+      const zeroLeft = $(element).position().left + $(container).scrollLeft();
+      $(container).animate({ scrollLeft: zeroLeft }, scrollSpeed);
+    }
+
+    function animatedSteps(element, container, scrollSpeed) {
+      const zeroLeft = $(element).position().left + $(container).scrollLeft();
+      $(container).animate({ scrollLeft: zeroLeft }, scrollSpeed);
+      const offsetLeft = $(container).width() - $(element).width();
+      const scrollTo = zeroLeft - offsetLeft;
+      setTimeout(() => {
+        $(container).animate({ scrollLeft: scrollTo }, scrollSpeed);
+      }, 1000);
+    }
 </script>
